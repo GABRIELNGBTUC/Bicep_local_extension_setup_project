@@ -1,12 +1,12 @@
-# Bicep local extension type generator
+#Bicep local extension type generator
 
 Based on the Github local extension sample provided by the Bicep team.
 
 The main goal of this project is to have a template that can be reused across projects and do not require modifications of the `TypeGenerator` class to generate types.
 
-## Components
+##Components
 
-### Projects
+###Projects
 
 1. CLI project
 
@@ -24,13 +24,13 @@ Contains the type generator used by the CLI
 
 Is the project that contains the handler delegated to run the local extension
 
-### Extension configuration
+###Extension configuration
 
 You can pass a configuration object to the type generator to add any required data that is necessary for the extension to work properly.
 
 Example: A PAT for an azure devops extension that does not use Entra ID authentication
 
-### Bicep resources
+###Bicep resources
 
 You can define Bicep resources for your local extension by annotating a class in your types library with `BicepSerializableType`.
 
@@ -57,7 +57,7 @@ Generates the following three resources:
 
 However, do note that while nesting resources is possible with local extension, the `parent` property is not natively supported and must be implemented by yourself.
 
-## Usage
+##Usage
 
 1. Generate the content of index.json and types.json and return it
 
