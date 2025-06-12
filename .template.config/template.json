@@ -4,7 +4,7 @@
   "classifications": [ "Common", "Console", "Scaffolding", "Local extension", "Bicep" ],
   "identity": "Bicep.LocalExtension.Setup",
   "name": "Bicep: Local extension project",
-  "shortName": "biceptypesgen",
+  "shortName": "biceplocalext",
   "sourceName":"Bicep.LocalExtension.Setup",
   "tags": {
     "language": "C#",
