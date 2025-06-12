@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "GABRIELNGBTUC",
+  "classifications": [ "Common", "Console", "Scaffolding", "Local extension", "Bicep" ],
+  "identity": "Bicep.LocalExtension.Setup",
+  "name": "Bicep: Local extension project",
+  "shortName": "biceptypesgen",
+  "sourceName":"Bicep.LocalExtension.Setup",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  }
+}
