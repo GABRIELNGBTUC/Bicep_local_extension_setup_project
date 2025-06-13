@@ -1,11 +1,11 @@
 param(
     [Parameter(Mandatory=$true)][string]$Target,
-    [Parameter(Mandatory=$true)][string]$ExtensionName
+    [Parameter(Mandatory=$true)][string]$ProjectName
 )
 
 # Définir les chemins racine et types
-$Root = (Get-Location).Path + "\..\"
-$TypesIndex = (Get-Location).Path + "\..\types\index.json"
+$Root = $PSScriptRoot + "/../"
+$TypesIndex = $PSScriptRoot + "\..\types\index.json"
 
 # Construire les différentes versions
 dotnet publish --configuration release --self-contained --runtime osx-arm64 $Root
