@@ -7,19 +7,19 @@ namespace Bicep.LocalExtension.Setup.ExtensionHost.Handlers;
 
 public class Class1Handler : IResourceHandler
 {
-    public string ResourceType => "Class1";
+    public string ResourceType => nameof(Class1);
     
     private record Identifiers(
         string? Name,
         string? Prop1);
 
-    public Task<LocalExtensibilityOperationResponse> CreateOrUpdate(ResourceSpecification request,
+    public Task<LocalExtensionOperationResponse> CreateOrUpdate(ResourceSpecification request,
         CancellationToken cancellationToken)
         => RequestHelper.HandleRequest(request.Config, async client =>
         {
             Console.WriteLine(JsonSerializer.Serialize(request, new JsonSerializerOptions(JsonSerializerDefaults.Web)));
             var properties = RequestHelper.GetProperties<Class1>(request.Properties);
-
+            
             try
             {
                 // Get existing resource
@@ -37,9 +37,11 @@ public class Class1Handler : IResourceHandler
         });
 
     // Corresponds to existing
-    public Task<LocalExtensibilityOperationResponse> Preview(ResourceSpecification request, CancellationToken cancellationToken)
+    public Task<LocalExtensionOperationResponse> Preview(ResourceSpecification request, CancellationToken cancellationToken)
         => RequestHelper.HandleRequest(request.Config, async client => {
             var properties = RequestHelper.GetProperties<Class1>(request.Properties);
+            
+            
             
             await Task.Yield();
 
@@ -48,12 +50,15 @@ public class Class1Handler : IResourceHandler
             return RequestHelper.CreateSuccessResponse(request, properties, new Identifiers(properties.Name, properties.Prop1));
         });
 
-    public Task<LocalExtensibilityOperationResponse> Get(ResourceReference request, CancellationToken cancellationToken)
+    public Task<LocalExtensionOperationResponse> Get(ResourceReference request, CancellationToken cancellationToken)
     {
+        //Get identifiers
+        var name = RequestHelper.GetIdentifierData(request, nameof(Class1.Name))?.ToString();
+
         throw new NotImplementedException();
     }
 
-    public Task<LocalExtensibilityOperationResponse> Delete(ResourceReference request, CancellationToken cancellationToken)
+    public Task<LocalExtensionOperationResponse> Delete(ResourceReference request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

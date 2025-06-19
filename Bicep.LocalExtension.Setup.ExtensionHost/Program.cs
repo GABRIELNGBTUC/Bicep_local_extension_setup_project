@@ -13,9 +13,6 @@ public static class Program
 {
     public static async Task Main(string[] args)
     {
-        var extension = new KestrelProviderExtension();
-
-
         await ProviderExtension.Run(new KestrelProviderExtension(), RegisterHandlers, args);
     }
 

@@ -10,7 +10,7 @@ namespace Bicep.LocalExtension.Setup.ExtensionHost.Helpers;
 public static class RequestHelper
 {
 
-    public static async Task<LocalExtensibilityOperationResponse> HandleRequest(JsonObject? config, Func<HandleService, Task<LocalExtensibilityOperationResponse>> onExecuteFunc)
+    public static async Task<LocalExtensionOperationResponse> HandleRequest(JsonObject? config, Func<HandleService, Task<LocalExtensionOperationResponse>> onExecuteFunc)
     {
        //Initialize the handle service here if it is necessary
        // For example, login to Azure DevOps with the PAT in the confituation
@@ -41,7 +41,7 @@ public static class RequestHelper
     public static TProperties GetProperties<TProperties>(JsonObject properties)
         => properties.Deserialize<TProperties>(new JsonSerializerOptions(JsonSerializerDefaults.Web))!;
 
-    public static LocalExtensibilityOperationResponse CreateSuccessResponse<TProperties, TIdentifiers>(ResourceReference request, TProperties properties, TIdentifiers identifiers)
+    public static LocalExtensionOperationResponse CreateSuccessResponse<TProperties, TIdentifiers>(ResourceReference request, TProperties properties, TIdentifiers identifiers)
     {
         return new(
             new(
@@ -54,7 +54,7 @@ public static class RequestHelper
             null);
     }
 
-    public static LocalExtensibilityOperationResponse CreateSuccessResponse<TProperties, TIdentifiers>(ResourceSpecification request, TProperties properties, TIdentifiers identifiers)
+    public static LocalExtensionOperationResponse CreateSuccessResponse<TProperties, TIdentifiers>(ResourceSpecification request, TProperties properties, TIdentifiers identifiers)
     {
         return new(
             new(
@@ -67,10 +67,23 @@ public static class RequestHelper
             null);
     }
 
-    public static LocalExtensibilityOperationResponse CreateErrorResponse(string code, string message, ErrorDetail[]? details = null, string? target = null)
+    public static LocalExtensionOperationResponse CreateErrorResponse(string code, string message, ErrorDetail[]? details = null, string? target = null)
     {
-        return new LocalExtensibilityOperationResponse(
+        return new LocalExtensionOperationResponse(
             null,
             new(new(code, target ?? "", message, details ?? [], [])));
     }
+    
+    public static string ToCamelCase(string input)
+    {
+        if (string.IsNullOrEmpty(input) || char.IsLower(input[0]))
+        {
+            return input;
+        }
+
+        return char.ToLower(input[0]) + input.Substring(1);
+    }
+    
+
+    public static JsonNode? GetIdentifierData(ResourceReference reference, string propertyName) => reference.Identifiers[ToCamelCase(propertyName)];
 }

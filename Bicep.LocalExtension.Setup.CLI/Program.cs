@@ -19,10 +19,11 @@ namespace Bicep.LocalExtension.Setup.CLI
         
         private static void Main(Options options)
         {
+            var types = TypeGenerator.GenerateTypes("test", "1.0.0", typeof(Configuration),typeof(Class1));
+            // DiscriminatedType example
+            //var types = TypeGenerator.GenerateTypes("test", "1.0.0", typeof(ConfigurationBase),typeof(Class1));
+
             
-            var config = new ExtensionConfiguration();
-            config.Add(ObjectTypePropertyFlags.None, new ExtensionConfigurationStringProperty("token", ObjectTypePropertyFlags.None, "Access token for the api", IsSecure: true));
-            var types = TypeGenerator.GenerateTypes("test", "1.0.0", config,typeof(Class1));
             var outdir = Path.GetFullPath(options.Outdir!);
 
             Directory.CreateDirectory(outdir);
